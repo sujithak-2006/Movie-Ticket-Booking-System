@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#081b29;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            color:white;
+        }
+
+        .profile-container{
+            width:450px;
+            background:#112e42;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 0 20px rgba(255,255,255,0.2);
+            text-align:center;
+        }
+
+        .profile-pic{
+            font-size:80px;
+            margin-bottom:20px;
+        }
+
+        h1{
+            margin-bottom:30px;
+            color:#00ff88;
+        }
+
+        .info{
+            text-align:left;
+            font-size:18px;
+            line-height:2.2;
+            margin-bottom:30px;
+        }
+
+        .btn{
+            display:block;
+            text-decoration:none;
+            background:red;
+            color:white;
+            padding:15px;
+            border-radius:10px;
+            margin:15px 0;
+            font-size:18px;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#ff3333;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="profile-container">
+
+    <div class="profile-pic">
+        👤
+    </div>
+
+    <h1>My Profile</h1>
+
+    <div class="info">
+
+        <p><b>Username:</b> {{ username }}</p>
+
+        <p><b>Email:</b> {{ email }}</p>
+
+    </div>
+
+    <a href="/my_bookings" class="btn">
+        🎫 My Bookings
+    </a>
+
+    <a href="/" class="btn">
+        🏠 Home
+    </a>
+
+    <a href="/logout" class="btn">
+        🚪 Logout
+    </a>
+
+</div>
+
+</body>
+</html>

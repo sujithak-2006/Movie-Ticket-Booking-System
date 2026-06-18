@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #081b29;
+            color: white;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        h1 {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .screen {
+            width: 600px;
+            margin: 20px auto;
+            background: white;
+            color: black;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .seat {
+            width: 45px;
+            height: 45px;
+            background: #444;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .seat.selected {
+            background: green;
+        }
+
+        .seat:hover {
+            background: green;
+        }
+
+        /* Center walkway aisle gap */
+        .seat.gap {
+            background: transparent !important;
+            cursor: default;
+            width: 40px;
+        }
+
+        .seat.gap:hover {
+            background: transparent !important;
+        }
+
+        .dates, .timings {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .dates h2, .timings h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .date-pill-btn, .time-btn {
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: red;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .continue-btn {
+            width: 100%;
+            margin-top: 25px;
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: block;
+            text-align: center;
+        }
+
+        .continue-btn:hover {
+            background: #b80710;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Select Your Seats</h1>
+
+    <div class="screen">SCREEN</div>
+
+    <div class="seat-container" style="display: inline-block; margin: 20px auto;">
+        <div class="row">
+            <div class="seat">A1</div><div class="seat">A2</div><div class="seat">A3</div><div class="seat">A4</div>
+            <div class="seat gap"></div>
+            <div class="seat">A5</div><div class="seat">A6</div><div class="seat">A7</div><div class="seat">A8</div>
+        </div>
+        <div class="row">
+            <div class="seat">B1</div><div class="seat">B2</div><div class="seat">B3</div><div class="seat">B4</div>
+            <div class="seat gap"></div>
+            <div class="seat">B5</div><div class="seat">B6</div><div class="seat">B7</div><div class="seat">B8</div>
+        </div>
+        <div class="row">
+            <div class="seat">C1</div><div class="seat">C2</div><div class="seat">C3</div><div class="seat">C4</div>
+            <div class="seat gap"></div>
+            <div class="seat">C5</div><div class="seat">C6</div><div class="seat">C7</div><div class="seat">C8</div>
+        </div>
+        <div class="row">
+            <div class="seat">D1</div><div class="seat">D2</div><div class="seat">D3</div><div class="seat">D4</div>
+            <div class="seat gap"></div>
+            <div class="seat">D5</div><div class="seat">D6</div><div class="seat">D7</div><div class="seat">D8</div>
+        </div>
+    </div>
+
+    <div class="dates">
+        <h2>Select Available Booking Date</h2>
+        <div id="dates-container" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            {% if available_dates %}
+                {% for raw_date in available_dates %}
+                    <button type="button" class="date-pill-btn" data-date="{{ raw_date }}">
+                        {{ raw_date }}
+                    </button>
+                {% endfor %}
+            {% else %}
+                <p style="color: #ff4444; font-style: italic;">❌ No upcoming show dates available for this movie currently.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="timings">
+        <h2>Select Show Time</h2>
+        <div id="timings-container" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <p style="color: #cccccc; font-style: italic;">Please select an available date first to see timings.</p>
+        </div>
+    </div>
+
+    <form action="/save_booking" id="bookingForm" method="POST">
+        <input type="hidden" name="seats" id="seats-input">
+        <input type="hidden" name="booking_date" id="date-input">
+        <input type="hidden" name="show_time" id="time-input">
+        <input type="hidden" name="amount" id="amount-input">
+        <input type="hidden" name="show_id" id="show-id-input"> 
+
+        <section class="summary" style="max-width: 450px; margin: 40px auto; padding: 25px; background: #0c2438; border: 1px solid #1c354d; border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); text-align: left;">
+            <h2 style="font-size: 22px; color: #fff; border-bottom: 2px solid #e50914; padding-bottom: 12px; margin-bottom: 20px; text-align: center; font-weight: 600;">
+                Booking Summary
+            </h2>
+
+            <div class="summary-details" style="display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: #cccccc;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1c354d; padding-bottom: 8px;">
+                    <span>Selected Movie:</span>
+                    <strong style="color: #fff; font-weight: 500;">{{ movie_title if movie_title else "Movie Selection" }}</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1c354d; padding-bottom: 8px;">
+                    <span>Ticket Price:</span>
+                    <strong id="display-price" style="color: #fff; font-weight: 500;">₹0</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1c354d; padding-bottom: 8px;">
+                    <span>Seats Selected:</span>
+                    <strong id="selected-seats" style="color: #e50914; font-weight: 600; text-align: right; max-width: 60%; word-wrap: break-word;">None</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1c354d; padding-bottom: 8px;">
+                    <span>Selected Date:</span>
+                    <strong id="selected-date" style="color: #fff; font-weight: 500;">None</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1c354d; padding-bottom: 8px;">
+                    <span>Show Time:</span>
+                    <strong id="selected-time" style="color: #fff; font-weight: 500;">None</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 8px; font-size: 18px;">
+                    <span style="color: #fff; font-weight: 600;">Total Amount:</span>
+                    <strong style="color: #ffd700; font-size: 22px; font-weight: 700;">₹<span id="total-price">0</span></strong>
+                </div>
+            </div>
+
+            <button type="submit" class="continue-btn">Proceed to Payment</button>
+        </section>
+    </form>
+
+<script>
+const seats = document.querySelectorAll('.seat');
+const dateButtons = document.querySelectorAll('.date-pill-btn');
+const timingsContainer = document.getElementById('timings-container');
+
+const selectedSeatsText = document.getElementById('selected-seats');
+const selectedTimeText = document.getElementById('selected-time');
+const selectedDateText = document.getElementById('selected-date');
+const totalPriceText = document.getElementById('total-price');
+const displayPriceText = document.getElementById('display-price');
+
+let currentMovie = "{{ movie_title }}"; 
+let selectedDate = "";
+let selectedTime = "";
+let ticketPrice = 0; 
+
+// ================= DATE SELECTION EVENT HANDLER =================
+dateButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+        // Style selected date tab
+        dateButtons.forEach(btn => {
+            btn.style.background = 'red';
+            btn.style.border = 'none';
+        });
+        button.style.background = 'green';
+        button.style.border = '2px solid #ffd700';
+
+        selectedDate = button.getAttribute('data-date'); 
+        selectedDateText.innerText = selectedDate;
+        document.getElementById('date-input').value = selectedDate;
+
+        // Reset old values inside timing container blocks
+        timingsContainer.innerHTML = '<p style="color: #00ff88;">Loading available show times...</p>';
+        selectedTimeText.innerText = "None";
+        selectedTime = "";
+        ticketPrice = 0;
+        document.getElementById('time-input').value = "";
+        document.getElementById('show-id-input').value = "";
+        updateBooking();
+
+        try {
+            const response = await fetch(`/api/get_timings?movie_name=${encodeURIComponent(currentMovie)}&chosen_date=${selectedDate}`);
+            const slots = await response.json();
+
+            if (slots.length === 0) {
+                timingsContainer.innerHTML = '<p style="color: #ff4444;">❌ No showtimes found for this date.</p>';
+                return;
+            }
+
+            timingsContainer.innerHTML = "";
+            slots.forEach(slot => {
+                const btn = document.createElement('button');
+                btn.type = "button";
+                btn.className = "time-btn";
+                btn.innerText = slot.show_time;
+                btn.style.cssText = "padding: 12px 20px; margin: 10px; border: none; border-radius: 8px; cursor: pointer; background: red; color: white; font-size: 16px; font-weight: 500; transition: 0.2s ease;";
+
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.time-btn').forEach(b => b.style.background = 'red');
+                    btn.style.background = 'green';
+                    btn.style.border = '2px solid #ffd700';
+
+                    selectedTime = slot.show_time;
+                    selectedTimeText.innerText = selectedTime;
+                    ticketPrice = parseInt(slot.price);
+                    
+                    document.getElementById('time-input').value = selectedTime;
+                    document.getElementById('show-id-input').value = slot.show_id;
+                    updateBooking();
+                });
+                timingsContainer.appendChild(btn);
+            });
+        } catch (err) {
+            timingsContainer.innerHTML = '<p style="color: red;">Error processing session timelines.</p>';
+        }
+    });
+});
+
+// ================= SEAT SELECTION ENGINE =================
+seats.forEach(seat => {
+    seat.addEventListener('click', () => {
+        if (seat.classList.contains('gap')) return; // Skip walkway layout gaps
+        seat.classList.toggle('selected');
+        updateBooking();
+    });
+});
+
+// ================= UPDATE AMOUNT SUMMARY CARD =================
+function updateBooking(){
+    const selectedSeats = document.querySelectorAll('.seat.selected');
+    let seatNames = [];
+
+    selectedSeats.forEach(seat => { seatNames.push(seat.innerText); });
+    selectedSeatsText.innerText = seatNames.length ? seatNames.join(', ') : "None";
+    
+    displayPriceText.innerText = `₹${ticketPrice}`;
+    let calculatedAmount = selectedSeats.length * ticketPrice;
+    totalPriceText.innerText = calculatedAmount;
+
+    document.getElementById('seats-input').value = seatNames.join(', ');
+    document.getElementById('amount-input').value = calculatedAmount;
+}
+
+// ================= FORM SUBMISSION BLOCKER =================
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    const selectedSeats = document.querySelectorAll('.seat.selected');
+    
+    if (selectedSeats.length === 0) {
+        e.preventDefault();
+        alert("Please select at least one seat before booking.");
+    } else if (selectedDate === "") {
+        e.preventDefault();
+        alert("Please select a date before proceeding.");
+    } else if (selectedTime === "") {
+        e.preventDefault();
+        alert("Please select a show time before proceeding.");
+    }
+});
+</script>
+
+</body>
+</html>

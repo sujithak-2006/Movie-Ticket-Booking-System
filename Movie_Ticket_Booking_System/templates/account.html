@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#081b29;
+    color:white;
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:280px;
+    background:#112e42;
+    padding:30px;
+}
+
+.sidebar h1{
+    margin-bottom:10px;
+}
+
+.sidebar p{
+    color:lightgray;
+    margin-bottom:30px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.menu a{
+    text-decoration:none;
+    color:white;
+    background:#1e3a52;
+    padding:15px;
+    border-radius:10px;
+}
+
+.content{
+    flex:1;
+    padding:50px;
+}
+
+.profile-box{
+    width:700px;
+    background:#112e42;
+    padding:40px;
+    border-radius:20px;
+}
+
+.profile-image{
+    font-size:80px;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.details{
+    font-size:20px;
+    line-height:3;
+}
+
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+
+<h1>Account</h1>
+
+<p>Manage your account information</p>
+
+<div class="menu">
+
+<a href="/account">👤 Profile</a>
+
+<a href="/my_bookings">🎫 My Bookings</a>
+
+<a href="/favorites">❤️ Favorites</a>
+
+<a href="#">🔒 Security</a>
+
+<a href="/logout">🚪 Logout</a>
+
+</div>
+
+</div>
+
+
+<div class="content">
+
+<h2>Profile Details</h2>
+
+<br><br>
+
+<div class="profile-box">
+
+<div class="profile-image">
+👤
+</div>
+
+<div class="details">
+
+<p><b>Username :</b> {{ username }}</p>
+
+<p><b>Email :</b> {{ email }}</p>
+
+<p><b>Account Type :</b> User</p>
+
+<p><b>Status :</b> Active</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

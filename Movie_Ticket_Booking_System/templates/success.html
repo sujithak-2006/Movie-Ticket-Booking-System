@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Successful</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #081b29;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 500px;
+            background: #112e42;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #00ff88;
+            margin-bottom: 30px;
+        }
+
+        .details {
+            text-align: left;
+            line-height: 2;
+            font-size: 18px;
+        }
+
+        .ticket-id {
+            margin-top: 20px;
+            color: gold;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: red;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        .btn:hover {
+            background: #ff3333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>✅ Booking Successful!</h1>
+
+    <div class="details">
+        <p><b>🎬 Movie:</b> {{ movie_title }}</p>
+        <p><b>🎟 Seats:</b> {{ seats_list }}</p>
+        <p><b>🕒 Show Time:</b> {{ time_slot }}</p>
+        <p><b>💳 Payment Method:</b> {{ pay_method }}</p>
+        <p><b>💰 Total Amount:</b> ₹{{ total_paid }}</p>
+    </div>
+
+    <div class="ticket-id">
+        🎫 Ticket ID : {{ ticket_id }}
+    </div>
+
+    <div class="buttons">
+        <a href="/" class="btn">🏠 Home</a>
+        <a href="/profile" class="btn">👤 Profile</a>
+    </div>
+
+</div>
+
+</body>
+</html>

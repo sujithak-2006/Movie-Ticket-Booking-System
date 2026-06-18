@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Login</h1>
+
+    <form action="/login" method="POST" autocomplete="off">
+
+        <input type="email"
+               name="email"
+               id="login-email"
+               placeholder="Enter Email"
+               autocomplete="username"
+               readonly
+               onfocus="this.removeAttribute('readonly');"
+               onclick="this.removeAttribute('readonly');"
+               required>
+
+        <input type="password"
+               name="password"
+               id="login-password"
+               placeholder="Enter Password"
+               autocomplete="current-password"
+               readonly
+               onfocus="this.removeAttribute('readonly');"
+               onclick="this.removeAttribute('readonly');"
+               required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <p>
+        Don't have an account? 
+        <a href="/register">Register</a>
+    </p>
+
+</div>
+
+</body>
+</html>

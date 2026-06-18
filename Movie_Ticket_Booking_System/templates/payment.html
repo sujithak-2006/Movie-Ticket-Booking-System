@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#081b29;
+            color:white;
+            text-align:center;
+        }
+
+        h1{
+            margin-top:40px;
+            margin-bottom:40px;
+        }
+
+        .payment-container{
+            width:400px;
+            margin:auto;
+        }
+
+        .option{
+            background:#1b2d40;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:20px;
+        }
+
+        .option:hover{
+            background:red;
+        }
+        
+        .option.selected{
+            background: green;
+        }
+
+
+
+        .pay-btn{
+            margin-top:30px;
+            display:inline-block;
+            background:red;
+            color:white;
+            text-decoration:none;
+            padding:15px 40px;
+            border-radius:10px;
+            font-size:20px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>Choose Payment Method</h1>
+
+<div class="payment-container">
+
+
+<div class="option">📱 UPI Payment</div>
+
+<div class="option">💳 Credit Card</div>
+
+<div class="option">💳 Debit Card</div>
+
+<div class="option">💵 Cash on Counter</div>
+
+<br>
+
+<h2>
+    Selected Payment Method:
+    <span id="selected-method">None</span>
+</h2>
+
+
+
+
+<form action="/save_payment" method="POST">
+
+    <input type="hidden"
+           name="payment_method"
+           id="payment-input">
+
+    <button type="submit" class="pay-btn">
+        Pay Now
+    </button>
+
+</form>
+
+
+</div>
+
+<script>
+
+const options = document.querySelectorAll('.option');
+
+const selectedMethod = document.getElementById('selected-method');
+
+options.forEach(option => {
+
+    option.addEventListener('click', () => {
+
+        options.forEach(btn => {
+
+            btn.classList.remove('selected');
+
+        });
+
+        option.classList.add('selected');
+
+        selectedMethod.innerText = option.innerText;
+        
+        document.getElementById('payment-input').value =
+        option.innerText;
+
+
+
+    });
+
+});
+
+</script>
+
+
+
+</body>
+</html>

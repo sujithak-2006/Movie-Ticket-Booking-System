@@ -1,0 +1,457 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #111827;
+    color: white;
+}
+
+/* ================= NAVBAR ================= */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: #1f2937;
+}
+
+.logo h1 {
+    color: #f59e0b;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #f59e0b;
+}
+
+/* ================= HERO SECTION ================= */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.7)), url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    width: 500px;
+    margin-left: 80px;
+}
+
+.hero-content h4 {
+    color: #f59e0b;
+    margin-bottom: 20px;
+}
+
+.hero-content h1 {
+    font-size: 80px;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.movie-info {
+    color: #ddd;
+    margin-bottom: 30px;
+}
+
+.hero-content p {
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.explore-btn {
+    padding: 15px 35px;
+    background: #f59e0b;
+    border: none;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* ================= TRENDING MOVIES ================= */
+.movies {
+    padding: 80px;
+}
+
+.movies h2 {
+    margin-bottom: 40px;
+    font-size: 35px;
+}
+
+.movie-container {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.movie-container::-webkit-scrollbar {
+    display: none;
+}
+
+.movie-card {
+    min-width: 220px;
+    background: #1f2937;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-10px);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.movie-details {
+    padding: 20px;
+}
+
+.movie-details h3 {
+    margin-bottom: 10px;
+}
+
+.movie-details p {
+    color: #d1d5db;
+}
+
+/* ================= BOOKING SECTION ================= */
+.booking {
+    padding: 80px;
+    text-align: center;
+}
+
+.screen {
+    background: white;
+    color: black;
+    width: 300px;
+    margin: 30px auto;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.seat {
+    width: 45px;
+    height: 45px;
+    background: green;
+    margin: 8px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.selected {
+    background: red;
+}
+
+/* ================= SUMMARY ================= */
+.summary {
+    text-align: center;
+    padding: 60px;
+}
+
+.summary p {
+    margin: 20px;
+    font-size: 20px;
+}
+
+#book-btn {
+    padding: 15px 30px;
+    background: #f59e0b;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ================= PREMIUM ABOUT US SECTION ================= */
+html {
+    scroll-behavior: smooth; /* Enables elegant window rolling animations */
+}
+
+.about-section {
+    padding: 80px 60px;
+    background: #1f2937; /* Consistent with navigation backgrounds */
+    border-top: 1px solid #374151;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+}
+
+.about-text h2 {
+    font-size: 35px;
+    color: #f59e0b; /* Accent highlight gold */
+    margin-bottom: 20px;
+}
+
+.about-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #d1d5db;
+    margin-bottom: 15px;
+}
+
+.about-stats {
+    flex: 1;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 20px;
+}
+
+.stat-box {
+    background: #111827; /* Dark backdrop container style */
+    padding: 25px 15px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #374151;
+    transition: 0.3s ease;
+}
+
+.stat-box:hover {
+    border-color: #f59e0b;
+    transform: translateY(-5px);
+}
+
+.stat-box h3 {
+    font-size: 28px;
+    color: #f59e0b;
+    margin-bottom: 5px;
+}
+
+.stat-box p {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+/* ================= FOOTER ================= */
+footer {
+    background: #1f2937;
+    padding: 25px;
+    text-align: center;
+}
+
+/* ================= RIGHT NAV CONTROLS ================= */
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-box {
+    width: 220px;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    background: #374151;
+    color: white;
+    font-size: 15px;
+}
+
+.search-box::placeholder {
+    color: #d1d5db;
+}
+
+.login-btn {
+    text-decoration: none;
+    background: #f59e0b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.profile-btn {
+    text-decoration: none;
+    background: #10b981;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.logout-btn {
+    text-decoration: none;
+    background: #ef4444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+/* ================= PROFILE SELECTION PORTAL ================= */
+.profile-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f59e0b;
+}
+
+.profile-section span {
+    color: white;
+    font-weight: 500;
+}
+
+/* ================= DROPDOWN LAYOUT MENU ================= */
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 180px;
+    background: #1f2937;
+    border-radius: 15px;
+    display: none;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    z-index: 1000;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    transition: .3s;
+}
+
+.dropdown-menu a:hover {
+    background: #374151;
+}
+
+/* ================= GENRE DROPDOWN ================= */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: #1f2937;
+    min-width: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    color: white;
+}
+
+.dropdown-content a:hover {
+    background: #374151;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.movie-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.movie-link:hover {
+    text-decoration: none;
+}
+
+.movie-link h3 {
+    color: white;
+}
+
+.movie-link p {
+    color: white;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Netflix-style dropdown */
+.suggestions {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 220px;
+    background: #111827;
+    border-radius: 10px;
+    border: 1px solid #374151;
+    display: none;
+    z-index: 9999;
+}
+
+.suggestion-item {
+    padding: 12px;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.suggestion-item:hover {
+    background: #374151;
+}

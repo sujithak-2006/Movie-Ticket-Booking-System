@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.title }} | Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif; }
+        body { background:#081b29; color:white; }
+        .container { width:85%; margin:50px auto; display:flex; gap:50px; align-items:center; }
+        .poster img { width:300px; border-radius:20px; box-shadow:0 0 25px rgba(255,255,255,0.2); }
+        .details { flex:1; }
+        .details h1 { font-size:55px; margin-bottom:20px; }
+        .info { font-size:20px; color:#cccccc; margin-bottom:20px; }
+        .description { font-size:18px; line-height:1.8; margin-bottom:30px; }
+        .price-tag { color:#e50914; font-size:22px; margin-bottom:15px; font-weight:bold; }
+        .duration { font-size:18px; margin-bottom:15px; }
+        .book-btn { background:#e50914; color:white; text-decoration:none; padding:15px 35px; border-radius:10px; font-size:18px; transition:0.3s; display:inline-block; }
+        .book-btn:hover { background:red; }
+        .back-btn { margin-left:20px; color:white; text-decoration:none; font-size:18px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="poster">
+        <img src="{{ url_for('static', filename='images/' + movie.image) }}" alt="Poster">
+    </div>
+
+    <div class="details">
+        <h1>{{ movie.title }}</h1>
+        
+        <div class="info">
+            {{ movie.genre }} • {{ movie.language }}
+        </div>
+
+        <div class="duration">
+              Duration: {{ movie.duration }}
+        </div>
+
+        <div class="price-tag">
+              Price: ₹{{ movie.price }}
+        </div>
+
+        <div class="description">
+            {{ movie.description }}
+        </div>
+
+        <a href="/booking?movie={{ movie.title | lower }}" class="book-btn">
+            Book Tickets
+        </a>
+
+        <a href="/" class="back-btn">🏠 Back to Home</a>
+    </div>
+</div>
+
+</body>
+</html>

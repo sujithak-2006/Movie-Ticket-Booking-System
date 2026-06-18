@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Movies | MovieHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #081b29;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1c354d;
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        .back-home {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-home:hover {
+            color: white;
+        }
+
+        /* 💻 Responsive grid that breaks items across multiple rows cleanly */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .movie-card {
+            background: #0c2438;
+            border: 1px solid #1c354d;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            border-color: #0ef;
+            box-shadow: 0 8px 25px rgba(0, 238, 255, 0.2);
+        }
+
+        .poster-container {
+            width: 100%;
+            height: 320px;
+            background: #112e42;
+            overflow: hidden;
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .movie-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-meta {
+            font-size: 13px;
+            color: #cccccc;
+        }
+
+        .book-btn {
+            display: block;
+            text-align: center;
+            background: #e50914;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-top: auto;
+            transition: background 0.2s;
+        }
+
+        .book-btn:hover {
+            background: #b80710;
+        }
+
+        .no-movies {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: #cccccc;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Movies</h1>
+        <a href="/" class="back-home">← Back to Home</a>
+    </header>
+
+    <main class="movies-grid">
+        {% if catalog %}
+            {% for movie in catalog %}
+                <div class="movie-card">
+                    <div class="poster-container">
+                        <img src="{{ url_for('static', filename='images/' + movie.poster_url) }}" class="movie-poster" alt="{{ movie.movie_name }} Poster">
+                    </div>
+                    <div class="movie-info">
+                        <h2 class="movie-title" title="{{ movie.movie_name }}">{{ movie.movie_name }}</h2>
+                        <p class="movie-meta">{{ movie.genre }} • {{ movie.language }}</p>
+                        <p class="movie-meta" style="color: #00ff88; font-weight: 500;">₹{{ movie.price }}</p>
+                        <a href="/booking?movie={{ movie.movie_name.lower().replace(' ', '-') }}" class="book-btn">Book Tickets</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-movies">
+                <p>No movies found inside the catalog currently.</p>
+            </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>
