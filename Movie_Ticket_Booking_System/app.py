@@ -1,22 +1,24 @@
 from flask import Flask, render_template, request, redirect, session, jsonify
 import mysql.connector
+import os  # Moved up here cleanly
 
 app = Flask(__name__)
 app.secret_key = "moviebooking123"
 
 # ================= DATABASE CONNECTION =================
-import os
-
 db_host = os.environ.get("DB_HOST", "localhost")
 db_user = os.environ.get("DB_USER", "root")
 db_password = os.environ.get("DB_PASSWORD", "Tamil@123")
 db_name = os.environ.get("DB_NAME", "movie_booking")
+# ✅ FIX: Fetch DB_PORT from Render environment, default to 3306 locally
+db_port = int(os.environ.get("DB_PORT", 3306)) 
 
 db = mysql.connector.connect(
     host=db_host,
     user=db_user,
     password=db_password,
-    database=db_name
+    database=db_name,
+    port=db_port  # ✅ FIX: Pass the port variable to the connector setup
 )
 
 cursor = db.cursor(buffered=True, dictionary=True)
@@ -140,11 +142,8 @@ def booking():
             movie_title = movie_data.get('movie_name')
             m_id = movie_data.get('movie_id')
             
-            # ✅ FIXED: Update the session token immediately when landing on the booking page 
-            # to prevent fallback data leaking onto ticket checkouts!
             session['movie_name'] = movie_title.lower()
             
-            # Query ONLY the unique upcoming dates the admin scheduled for this movie
             cursor.execute("""
                 SELECT DISTINCT show_date FROM shows 
                 WHERE movie_id = %s AND show_date >= CURDATE()
@@ -337,15 +336,11 @@ def delete_selected_bookings():
     if not session.get('user_id'):
         return redirect('/login')
 
-    # Read the data rows mapped array sent via the checkbox form post names
     selected_ids = request.form.getlist('booking_ids')
 
     if selected_ids:
-        # Generate safe matching variable binding parameters dynamically to clear targets safely
         format_strings = ','.join(['%s'] * len(selected_ids))
         query = f"DELETE FROM bookings WHERE booking_id IN ({format_strings}) AND user_id = %s"
-        
-        # Security parameter injection containment pairing
         query_params = list(selected_ids) + [session['user_id']]
         
         cursor.execute(query, query_params)
@@ -356,7 +351,6 @@ def delete_selected_bookings():
 # ================= GLOBAL MOVIES CATALOG DISCOVERY LINK =================
 @app.route('/movies')
 def movies_catalog():
-    # Fetch all records dynamically from database catalog table layout rows
     cursor.execute("SELECT * FROM movies ORDER BY movie_name ASC")
     all_movies = cursor.fetchall()
     return render_template('movies.html', catalog=all_movies)
@@ -364,13 +358,10 @@ def movies_catalog():
 # ================= SINGLE TICKET CANCELLATION ENGINE =================
 @app.route('/cancel_booking/<int:booking_id>')
 def cancel_booking(booking_id):
-    # Verify user authentication sequence state
     if not session.get('user_id'):
         return redirect('/login')
 
     try:
-        # Instead of deleting the record completely, change its status to 'Cancelled'
-        # to ensure it preserves your layout structure gracefully
         query = "UPDATE bookings SET status = 'Cancelled' WHERE booking_id = %s AND user_id = %s"
         cursor.execute(query, (booking_id, session['user_id']))
         db.commit()
@@ -379,7 +370,6 @@ def cancel_booking(booking_id):
         db.rollback()
         print(f"Database error during reservation cancel operation sequence: {e}")
 
-    # Seamlessly return right back to your updated dashboard view
     return redirect('/my_bookings')
 
 if __name__ == '__main__':
